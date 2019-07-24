@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                font-family: Verdana, Tahoma, sans-serif;
+                background-color: #f2f2f2;
+                color: #666666;
+            }
+            .results {
+                display: flex;
+                text-align: center;
+            }
+            .item {
+                margin-bottom: 20px;
+                text-align: center;
+                font-size: 26px;
+                font-weight: bold;
+                flex: 1;
+            }
+            .success {
+                color: green;
+            }
+            .fails {
+                color: #e60000;
+            }
+            .card {
+                background-color: #ffffff;
+                border-radius: 10px;
+                box-shadow: 0 0 10px 0 rgba(45, 45, 45, .2);
+                margin: 15px;
+            }
+            table {
+                width: 100%;
+            }
+            tr.pass:first-child > td {
+                color: green;
+            }
+            tr.fail:first-child > td {
+                color: #e60000;
+            }
+            td {
+                padding: 5px;
+            }
+            td.header {
+                font-size: 14px;
+                width: 33%;
+            }
+            td.pass {
+                color: green;
+                font-weight: bold;
+                font-size: 20px;
+            }
+            td.fail {
+                color: #e60000;
+                font-weight: bold;
+                font-size: 20px;
+            }
+            .center {
+                text-align: center;
+            }
+            .bold {
+                font-weight: bold;
+            }
+            .title {
+                font-weight: bold;
+                text-align: center;
+                font-size: 24px;
+                padding-top: 20px;
+                padding-bottom: 3px;
+            }   
+        </style>
+    </head>
+    <body>
+        <h1 class="center">LAYOUT COMPARE RESULTS</h1>
+        <div class="results">
+            <div class="item success">Success: 2</div>
+            <div class="item fails">Failures: 2</div>
+        </div>     
+        <div class="card">
+            <table>
+                <tbody> 
+                    <tr class="pass">
+                        <td colspan="3" class="title">cat.png</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center">The images are identical</td>
+                    </tr>
+                    <tr>
+                        <td class="header bold center">Result</td>                    
+                        <td class="header bold center">Threshold</td>
+                        <td class="header bold center">Diff</td>
+                    </tr>
+                    <tr>               
+                        <td class="pass center">PASS</td>
+                        
+                        <td class="center">0 %</td>
+                        <td class="center">0 pixels</td> 
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center"><button id="cat.png" onclick="hideShowElement(this)">Show Result</button></td>
+                    </tr>
+                    <tr id="image-cat.png" style="display: none;">
+                        <td colspan="3" class="center"><img src="result_cat.png" height="1400"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>  
+        <div class="card">
+            <table>
+                <tbody> 
+                    <tr class="fail">
+                        <td colspan="3" class="title">leopard.png</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center">The images are too different</td>
+                    </tr>
+                    <tr>
+                        <td class="header bold center">Result</td>                    
+                        <td class="header bold center">Threshold</td>
+                        <td class="header bold center">Diff</td>
+                    </tr>
+                    <tr>               
+                        
+                        <td class="fail center">FAIL</td>
+                        <td class="center">0 %</td>
+                        <td class="center">865082 pixels</td> 
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center"><button id="leopard.png" onclick="hideShowElement(this)">Show Result</button></td>
+                    </tr>
+                    <tr id="image-leopard.png" style="display: none;">
+                        <td colspan="3" class="center"><img src="result_leopard.png" height="1400"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>  
+        <div class="card">
+            <table>
+                <tbody> 
+                    <tr class="fail">
+                        <td colspan="3" class="title">lion.png</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center">The images are too different</td>
+                    </tr>
+                    <tr>
+                        <td class="header bold center">Result</td>                    
+                        <td class="header bold center">Threshold</td>
+                        <td class="header bold center">Diff</td>
+                    </tr>
+                    <tr>               
+                        
+                        <td class="fail center">FAIL</td>
+                        <td class="center">0 %</td>
+                        <td class="center">131 pixels</td> 
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center"><button id="lion.png" onclick="hideShowElement(this)">Show Result</button></td>
+                    </tr>
+                    <tr id="image-lion.png" style="display: none;">
+                        <td colspan="3" class="center"><img src="result_lion.png" height="1400"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>  
+        <div class="card">
+            <table>
+                <tbody> 
+                    <tr class="pass">
+                        <td colspan="3" class="title">tiger.png</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center">The images are very similar, but still below the threshold</td>
+                    </tr>
+                    <tr>
+                        <td class="header bold center">Result</td>                    
+                        <td class="header bold center">Threshold</td>
+                        <td class="header bold center">Diff</td>
+                    </tr>
+                    <tr>               
+                        <td class="pass center">PASS</td>
+                        
+                        <td class="center">4 %</td>
+                        <td class="center">26740 pixels</td> 
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center"><button id="tiger.png" onclick="hideShowElement(this)">Show Result</button></td>
+                    </tr>
+                    <tr id="image-tiger.png" style="display: none;">
+                        <td colspan="3" class="center"><img src="result_tiger.png" height="1400"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>  
+    </body>
+    <script type="text/javascript" async="async">
+        function hideShowElement(element) {
+            var imageName = element.getAttribute('id').replace(".png", "");
+            var imageId = '[id*=image-' + imageName + ']';
+            var image = document.querySelector(imageId);
+            if (image.style.display == "none") {
+                image.style.display = "";
+                element.innerHTML = "Hide Result";
+            } else {
+                image.style.display = "none";
+                element.innerHTML = "Show Result";
+            }
+        }        
+    </script>
+</html>

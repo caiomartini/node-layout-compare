@@ -1,0 +1,9 @@
+{
+    "threshold": 0,
+    "images": [
+        {
+            "name": "tiger.png",
+            "threshold": 4
+        }
+    ]
+}

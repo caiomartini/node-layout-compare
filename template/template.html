@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                font-family: Verdana, Tahoma, sans-serif;
+                background-color: #f2f2f2;
+                color: #666666;
+            }
+            .results {
+                display: flex;
+                text-align: center;
+            }
+            .item {
+                margin-bottom: 20px;
+                text-align: center;
+                font-size: 26px;
+                font-weight: bold;
+                flex: 1;
+            }
+            .success {
+                color: green;
+            }
+            .fails {
+                color: #e60000;
+            }
+            .card {
+                background-color: #ffffff;
+                border-radius: 10px;
+                box-shadow: 0 0 10px 0 rgba(45, 45, 45, .2);
+                margin: 15px;
+            }
+            table {
+                width: 100%;
+            }
+            tr.pass:first-child > td {
+                color: green;
+            }
+            tr.fail:first-child > td {
+                color: #e60000;
+            }
+            td {
+                padding: 5px;
+            }
+            td.header {
+                font-size: 14px;
+                width: 33%;
+            }
+            td.pass {
+                color: green;
+                font-weight: bold;
+                font-size: 20px;
+            }
+            td.fail {
+                color: #e60000;
+                font-weight: bold;
+                font-size: 20px;
+            }
+            .center {
+                text-align: center;
+            }
+            .bold {
+                font-weight: bold;
+            }
+            .title {
+                font-weight: bold;
+                text-align: center;
+                font-size: 24px;
+                padding-top: 20px;
+                padding-bottom: 3px;
+            }   
+        </style>
+    </head>
+    <body>
+        <h1 class="center">LAYOUT COMPARE RESULTS</h1>
+        <div class="results">
+            <div class="item success">Success: {{totalPass}}</div>
+            <div class="item fails">Failures: {{totalFail}}</div>
+        </div>     
+        {{#images}}
+        <div class="card">
+            <table>
+                <tbody> 
+                    {{#HasPassed}}               
+                    <tr class="pass">
+                        <td colspan="3" class="title">{{ImageName}}</td>
+                    </tr>
+                    {{/HasPassed}}
+                    {{^HasPassed}}
+                    <tr class="fail">
+                        <td colspan="3" class="title">{{ImageName}}</td>
+                    </tr>
+                    {{/HasPassed}}
+                    <tr>
+                        <td colspan="3" class="center">{{ImageResultText}}</td>
+                    </tr>
+                    <tr>
+                        <td class="header bold center">Result</td>                    
+                        <td class="header bold center">Threshold</td>
+                        <td class="header bold center">Diff</td>
+                    </tr>
+                    <tr>               
+                        {{#HasPassed}}<td class="pass center">PASS</td>{{/HasPassed}}
+                        {{^HasPassed}}<td class="fail center">FAIL</td>{{/HasPassed}}
+                        <td class="center">{{Threshold}} %</td>
+                        <td class="center">{{Differences}} pixels</td> 
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center"><button id="{{ImageName}}" onclick="hideShowElement(this)">Show Result</button></td>
+                    </tr>
+                    <tr id="image-{{ImageName}}" style="display: none;">
+                        <td colspan="3" class="center"><img src="{{ImageResultPath}}" height="1400"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center">{{Error}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>  
+        {{/images}}        
+    </body>
+    <script type="text/javascript" async="async">
+        function hideShowElement(element) {
+            var imageName = element.getAttribute('id').replace(".png", "");
+            var imageId = '[id*=image-' + imageName + ']';
+            var image = document.querySelector(imageId);
+            if (image.style.display == "none") {
+                image.style.display = "";
+                element.innerHTML = "Hide Result";
+            } else {
+                image.style.display = "none";
+                element.innerHTML = "Show Result";
+            }
+        }        
+    </script>
+</html>
