@@ -102,7 +102,7 @@
                     <tr>               
                         {{#HasPassed}}<td class="pass center">PASS</td>{{/HasPassed}}
                         {{^HasPassed}}<td class="fail center">FAIL</td>{{/HasPassed}}
-                        <td class="center">{{Threshold}} %</td>
+                        <td class="center">{{Threshold}} {{ThresholdType}}</td>
                         <td class="center">{{Differences}} pixels</td> 
                     </tr>
                     <tr>

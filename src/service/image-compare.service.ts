@@ -21,8 +21,7 @@ export class ImageCompareService {
             const promisesArray: Promise<ImageCompareResult>[] = [];
             const thresholdConfig = JSON.parse(fs.readFileSync(`${this.baseImagesDirectory}/threshold-config.json`, 'utf-8'));
 
-            try {
-                
+            try {                
                 const imagesToCompare: any[] = [];
 
                 DirectoryTree(this.imagesDirectory, { extensions: this.extension }, (fileToCompare) => {
@@ -30,15 +29,10 @@ export class ImageCompareService {
                 });                
 
                 DirectoryTree(this.baseImagesDirectory, { extensions: this.extension }, (baseImage : any) => {
-                    let threshold: number = thresholdConfig.threshold;
-                    if (thresholdConfig.images) {
-                        const imageThreshold = thresholdConfig.images.filter((image: any) => image.name === baseImage.name);
-                        if (imageThreshold[0]) {                            
-                            threshold = imageThreshold[0].threshold;
-                        }
-                    } 
-                    promisesArray.push(this.compareFile(baseImage, imagesToCompare, threshold));
+                    let threshod: any = this.getImageThreshod(thresholdConfig, baseImage); 
+                    promisesArray.push(this.compareFile(baseImage, imagesToCompare, threshod));
                 });
+
                 Promise.all(promisesArray).then((images) => {
                     resolve(images);
                 });
@@ -49,11 +43,32 @@ export class ImageCompareService {
         });
     }
 
-    private compareFile(baseImage: any, imagesToCompare: any, threshold: number): Promise<ImageCompareResult> {
+    private getImageThreshod(thresholdConfig: any, baseImage: any): any {
+        let imageThreshold: any = {};        
+        imageThreshold.threshold = thresholdConfig.threshold;
+        imageThreshold.thresholdType = thresholdConfig.thresholdType;
+
+        if (thresholdConfig.images) {
+            const imageThresholdResult = thresholdConfig.images.filter((image: any) => image.name === baseImage.name);
+            if (imageThresholdResult[0]) {                                               
+                imageThreshold = imageThresholdResult[0];
+            }
+        } 
+
+        if(!imageThreshold.thresholdType) {
+            imageThreshold.thresholdType = BlinkDiff.THRESHOLD_PERCENT;
+        }
+
+        return imageThreshold;
+    }
+
+    private compareFile(baseImage: any, imagesToCompare: any, imageThreshold: any): Promise<ImageCompareResult> {
         return new Promise<ImageCompareResult>((resolve) => {
             let imageCompareResult = new ImageCompareResult();
             imageCompareResult.ImageName = baseImage.name;
-            imageCompareResult.Threshold = threshold;
+            imageCompareResult.Threshold = imageThreshold.threshold;
+            imageCompareResult.ThresholdType = imageThreshold.thresholdType == BlinkDiff.THRESHOLD_PERCENT ? "%" : "pixels";
+
             
             const imageToCompare = imagesToCompare.filter((f: any) => 
                 f.path.replace(this.imagesDirectory, '') === baseImage.path.replace(this.baseImagesDirectory, ''));
@@ -61,14 +76,18 @@ export class ImageCompareService {
             if (imageToCompare[0]) {
                 
                 try {   
-                    imageCompareResult.ImageResultPath = `result_${imageToCompare[0].name}`;                                       
- 
+                    imageCompareResult.ImageResultPath = `result_${imageToCompare[0].name}`;                  
+
+                    if(imageThreshold && imageThreshold.thresholdType == BlinkDiff.THRESHOLD_PERCENT) {
+                        imageThreshold.threshold /= 100;
+                    }
+
                     const blinkDiff = new BlinkDiff({ 
                         imageAPath: baseImage.path,
                         imageBPath: imageToCompare[0].path,
                         imageOutputPath: `${this.resultDirectory}/${imageCompareResult.ImageResultPath}`,
-                        threshold: threshold / 100,
-                        thresholdType: BlinkDiff.THRESHOLD_PERCENT,
+                        threshold: imageThreshold.threshold,
+                        thresholdType: imageThreshold.thresholdType,
                     });                    
                     blinkDiff.run((error: any, result: any) => {
                         if (error) {

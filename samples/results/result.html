@@ -74,7 +74,7 @@
     <body>
         <h1 class="center">LAYOUT COMPARE RESULTS</h1>
         <div class="results">
-            <div class="item success">Success: 2</div>
+            <div class="item success">Success: 3</div>
             <div class="item fails">Failures: 2</div>
         </div>     
         <div class="card">
@@ -166,6 +166,38 @@
                     </tr>
                     <tr id="image-lion.png" style="display: none;">
                         <td colspan="3" class="center"><img src="result_lion.png" height="1400"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>  
+        <div class="card">
+            <table>
+                <tbody> 
+                    <tr class="pass">
+                        <td colspan="3" class="title">tiger-pixel-diff.png</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center">The images are very similar, but still below the threshold</td>
+                    </tr>
+                    <tr>
+                        <td class="header bold center">Result</td>                    
+                        <td class="header bold center">Threshold</td>
+                        <td class="header bold center">Diff</td>
+                    </tr>
+                    <tr>               
+                        <td class="pass center">PASS</td>
+                        
+                        <td class="center">26741 pixels</td>
+                        <td class="center">26740 pixels</td> 
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="center"><button id="tiger-pixel-diff.png" onclick="hideShowElement(this)">Show Result</button></td>
+                    </tr>
+                    <tr id="image-tiger-pixel-diff.png" style="display: none;">
+                        <td colspan="3" class="center"><img src="result_tiger-pixel-diff.png" height="1400"></td>
                     </tr>
                     <tr>
                         <td colspan="3" class="center"></td>
