@@ -4,6 +4,11 @@
         {
             "name": "tiger.png",
             "threshold": 4
+        },
+        {
+            "name": "tiger-pixel-diff.png",
+            "threshold": 26741,
+            "thresholdType": "pixel"
         }
     ]
 }

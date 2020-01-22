@@ -47,6 +47,14 @@ export class ImageCompareResult {
         this._threshold = value;
     }
 
+    private _thresholdType: string;
+    public get ThresholdType(): string {
+        return this._thresholdType;
+    }
+    public set ThresholdType(value: string) {
+        this._thresholdType = value;
+    }    
+
     private _imageResultCode: number;
     public set ImageResultCode(value: number) {
         this._imageResultCode = value;
