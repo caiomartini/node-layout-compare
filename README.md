@@ -4,9 +4,9 @@ O projeto foi construído em Node.js utilizando a biblioteca [Blink-Diff](https:
 
 Para executar a análise é necessário informar as seguintes pastas
 ```
-1. Pasta das imagens base para a análise.
-2. Pasta das imagens a serem comparadas.
-3. Pasta para o resultado final da análise.
+1. Pasta das imagens base para a análise
+2. Pasta das imagens a serem comparadas
+3. Pasta para o resultado final da análise
 ```
 
 Para configurar o threshold é necessário criar/editar o arquivo `threshold-config.json` na pasta das imagens base, encontramos um exemplo na pasta `samples/baseline`.
