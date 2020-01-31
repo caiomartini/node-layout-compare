@@ -11,7 +11,7 @@ Para executar a análise é necessário informar as seguintes pastas
 
 Para configurar o threshold é necessário criar/editar o arquivo `threshold-config.json` na pasta das imagens base, encontramos um exemplo na pasta `samples/baseline`.
 
-A chave `threshold` será aplicada em todas as imagens, mas caso seja necessário, podemos informar um threshold individual por imagem conforme o exemplo abaixo
+A chave `threshold` será aplicada em todas as imagens, mas caso seja necessário podemos informar um threshold individual por imagem conforme o exemplo abaixo
 ```
 {
     "threshold": 0,
