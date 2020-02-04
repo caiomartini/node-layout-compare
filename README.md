@@ -22,7 +22,7 @@ A chave `threshold` será aplicada em todas as imagens, mas caso seja necessári
         },
         {
             "name": "dog.png",
-            "threshold": 20
+            "threshold": 20,
             "thresholdType": "pixel"
         }
     ]
